@@ -24,7 +24,7 @@ public class MedicoVeteriario {
     }
 
     public MedicoVeteriario(String nombre, String apellido, int edad, String sexo, String ciudad, int telefonoFijo, int telefonoCelular, String direccion, String especialidad) {
-        this.nombre = nombre;
+        this.nombre = nombre;   
         this.apellido = apellido;
         this.edad = edad;
         this.sexo = sexo;

@@ -11,13 +11,13 @@
             <li><a href="mascotas.jsp">Mascotas</a></li>
             <li><a href="veterinario.jsp">Medico Veterinario</a></li>
             <li><a href="enfermedad.jsp">Enfermedad</a></li>
-            <li><a href="buscar.jsp">Buscar</a></li>
+            <li><a href="consultas.jsp">Consultas</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
             <li><a href="mascotas.jsp">Mascotas</a></li>
             <li><a href="veterinario.jsp">Medico Veterinario</a></li>
             <li><a href="enfermedad.jsp">Enfermedad</a></li>
-            <li><a href="buscar.jsp">Buscar</a></li>
+            <li><a href="consultas.jsp">Consultas</a></li>
         </ul>
     </div>
 </nav>

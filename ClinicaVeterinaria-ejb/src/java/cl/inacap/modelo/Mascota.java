@@ -5,7 +5,7 @@
  */
 package cl.inacap.modelo;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *

@@ -4,8 +4,16 @@
     Author     : Viviana Campos
 --%>
 
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="cl.inacap.bean.ContadorConsultasLocal"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%! ContadorConsultasLocal contadorConsultas;%>
+<% 
+    InitialContext c = new InitialContext();
+    contadorConsultas = (ContadorConsultasLocal) c.lookup("java:global/ClinicaVeterinaria/ClinicaVeterinaria-ejb/ContadorConsultas!cl.inacap.bean.ContadorConsultasLocal");
+%>
+<c:set var="consul" value="<%= contadorConsultas %>" scope="page" />
 <html>
     <head>
         <!--Import Google Icon Font-->
@@ -26,7 +34,7 @@
             <div class="row">
                 <div class="col s8 offset-s2 card-panel z-depth-5">
                     <p class="center-align">Ingresar Medico Veterinario</p>
-                    <form class="col s12" action="registrar.do" method="post">
+                    <form class="col s12" action="registrarVeterinario.do" method="post">
                         <div class="input-field col s12">
                             <input id="nombre" type="text" name="nombre">
                             <label for="txtNombre">Nombre</label>
@@ -44,7 +52,6 @@
                                 <option value="" disabled selected>Seleccione genero</option>
                                 <option value="1">Femenino</option>
                                 <option value="2">Masculino</option>
-                                <option value="3">Prefiero no decir</option>
                             </select>
                             <label>Genero</label>
                         </div>
@@ -98,23 +105,67 @@
                         </button>
                         <br><br>
                         <br><br>
-
                     </form>
-                </div> 
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s8 offset-s2 card-panel z-depth-5">
+                    <form action="listarVeterinario.do" method="post">
+                        <table class="bordered highlight">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Edad</th>
+                                <th>Genero</th>
+                                <th>Ciudad</th>
+                                <th>Telefono</th>
+                                <th>Celular</th>
+                                <th>Direccion</th>
+                                <th>Especialidad</th>
+
+                            </tr>
+                            <c:forEach items="${consul.veterinarios}" var="vet"> 
+                                <tr>
+                                    <td>${vet.nombre}</td>
+                                    <td>${vet.apellido}</td>
+                                    <td>${vet.edad}</td>
+                                    <td>${vet.sexo}</td>
+                                    <td>${vet.ciudad}</td>
+                                    <td>${vet.telefonoFijo}</td>
+                                    <td>${vet.telefonoCelular}</td>
+                                    <td>${vet.direccion}</td>
+                                    <td>${vet.especialidad}</td>
+                                    <td>
+                                        <a href="actualizarVeterinario.jsp?nombre=${vet.nombre}&apellido=${vet.apellido}&edad=${vet.edad}&ciudad=${vet.ciudad}$telefonoFijo=${vet.telefonoFijo}&telefonoCelular=${vet.telefonoCelular}&direccion=${vet.direccion}&especialidad=${vet.especialidad}" class="btn-floating blue">
+                                            <i class="material-icons">mode_edit</i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="eliminarVeterinario.jsp?nombre=${vet.nombre}&apellido=${vet.apellido}&edad=${vet.edad}&ciudad=${vet.ciudad}$telefonoFijo=${vet.telefonoFijo}&telefonoCelular=${vet.telefonoCelular}&direccion=${vet.direccion}&especialidad=${vet.especialidad}" class="btn-floating red">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>    
+                            </c:forEach>
 
 
-                <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-                <script type="text/javascript" src="js/materialize.min.js"></script>
-                <script type="text/javascript">
-                    $(function () {
-                        $(".button-collapse").sideNav();
-                        $("select").material_select();
-                    });
-                </script>
-                <script>
-                    $(document).ready(function () {
-                        $('select').material_select();
-                    });
-                </script>
-                </body>
-                </html>
+                        </table>
+                    </form>
+                </div>
+            </div>   
+
+            <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+            <script type="text/javascript" src="js/materialize.min.js"></script>
+            <script type="text/javascript">
+                $(function () {
+                    $(".button-collapse").sideNav();
+                    $("select").material_select();
+                });
+            </script>
+            <script>
+                $(document).ready(function () {
+                    $('select').material_select();
+                });
+            </script>
+    </body>
+</html>

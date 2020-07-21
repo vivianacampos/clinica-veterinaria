@@ -4,16 +4,19 @@
     Author     : Viviana Campos
 --%>
 <%@page import="javax.naming.InitialContext"%>
-<%@page import="cl.inacap.bean.VeterinariaBeanLocal"%>
+<%@page import="cl.inacap.bean.ContadorConsultasLocal"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<%! VeterinariaBeanLocal consultasBean;%>
+<!-- Declaración del EJB en el JSP -->
+<%! ContadorConsultasLocal contadorConsultas;%>
 <%
     InitialContext c = new InitialContext();
-    consultasBean = (VeterinariaBeanLocal) c.lookup("java:global/ClinicaVeterinaria/ClinicaVeterinaria-ejb/ContadorConsultas!cl.inacap.bean.VeterinariaBeanLocal");
+    contadorConsultas = (ContadorConsultasLocal) c.lookup("java:global/ClinicaVeterinaria/ClinicaVeterinaria-ejb/ContadorConsultas!cl.inacap.bean.ContadorConsultasLocal");
 %>
-<c:set var="consulta" value="<%=consultasBean%>" scope="page"/>
+<c:set var="consul" value="<%= contadorConsultas%>" scope="page" />
+<!DOCTYPE html>
+
+
 <html>
     <head>
         <!--Import Google Icon Font-->
@@ -36,7 +39,7 @@
             <div class="row">
                 <div class="col s8 offset-s2 card-panel z-depth-5">
                     <p class="center-align">Registrar nueva mascota</p>
-                    <form class="col s12" action="registar.do" method="post">
+                    <form class="col s12" action="registrarMacotas.do" method="POST">
 
                         <div class="input-field">
                             <input id="nombre" type="text" name="nombre">
@@ -63,11 +66,7 @@
                                    value="0">
                             <label for="edad">Edad</label>
                         </div>
-                        <div class="input-field">
-                            <input id="FNac" type="date" name="fechaNac"
-                                   value="Fecha de Nacimiento"
-                                   min="2000/01/01" max="18/07/2020">
-                        </div>
+
                         <div class="input-field">
                             <select name="cboSexo" id="sexo" >
                                 <option value="" disabled selected>Seleccione el Sexo</option>
@@ -76,19 +75,54 @@
                             </select>
                             <label for="sexo">Sexo</label>
                         </div>
+                        <div class="input-field">
+                            <input id="fNac" type="date" name="fechaNac"
+                                   value=""
+                                   min="2000/01/01" max="18/07/2020">
+                            <label for="fNac">Fecha de Nacimiento</label>
+                        </div>
                         <button  name="bt" value="1" type="submit" class="btn right" >
                             Ingresar
                         </button>
-                        <br>
                         <br><br>
-
                     </form>
-                    <div>${msg}</div>
                 </div>
-                <c:if test="${not empty msg1}">
-                    <div class="card-panel hoverable text-darken-4 red-text">${msg1}</div>
-                </c:if>
-
+            </div>
+            <div class="row">
+                <div class="col s8 offset-s2 card-panel z-depth-5">
+                    <form action="listarMascota.do" method="post">
+                        <table class="bordered highlight">
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Especie</th>
+                                <th>Raza</th>
+                                <th>Edad</th>
+                                <th>Sexo</th>
+                                <th>Fecha Nac</th>
+                            </tr>
+                            <c:forEach items="${consul.mascotas}" var="mas"> 
+                                <tr>
+                                    <td>${mas.nombre}</td>
+                                    <td>${mas.especie}</td>
+                                    <td>${mas.raza}</td>
+                                    <td>${mas.edad}</td>
+                                    <td>${mas.sexo}</td>
+                                    <td>${mas.fNac}</td>
+                                    <td>
+                                        <a href="actualizarMascota.jsp?nombre=${mas.nombre}&especie=${mas.especie}&raza=${mas.raza}&edad=${mas.edad}&sexo=${mas.sexo}$sexo=${mas.fNac}" class="btn-floating blue">
+                                            <i class="material-icons">mode_edit</i>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="eliminarMascota.jsp?nombre=${mas.nombre}&especie=${mas.especie}&raza=${mas.raza}&edad=${mas.edad}&sexo=${mas.sexo}$sexo=${mas.fNac}" class="btn-floating red">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </td>
+                                </tr>    
+                            </c:forEach>
+                        </table>
+                    </form>
+                </div>
             </div>
         </div>
 

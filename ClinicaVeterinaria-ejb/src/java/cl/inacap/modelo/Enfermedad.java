@@ -12,16 +12,16 @@ package cl.inacap.modelo;
 public class Enfermedad {
     private String nombreEnf;
     private String descripcion;
-    private String prevalenca;
+    private String prevalencia;
     private String tto;
 
     public Enfermedad() {
     }
 
-    public Enfermedad(String nombreEnf, String descripcion, String prevalenca, String tto) {
+    public Enfermedad(String nombreEnf, String descripcion, String prevalencia, String tto) {
         this.nombreEnf = nombreEnf;
         this.descripcion = descripcion;
-        this.prevalenca = prevalenca;  //tiempo de duracion de la enfermedad
+        this.prevalencia = prevalencia;  //tiempo de duracion de la enfermedad
         this.tto = tto;
     }
 
@@ -41,12 +41,12 @@ public class Enfermedad {
         this.descripcion = descripcion;
     }
 
-    public String getPrevalenca() {
-        return prevalenca;
+    public String getPrevalencia() {
+        return prevalencia;
     }
 
-    public void setPrevalenca(String prevalenca) {
-        this.prevalenca = prevalenca;
+    public void setPrevalencia(String prevalencia) {
+        this.prevalencia = prevalencia;
     }
 
     public String getTto() {

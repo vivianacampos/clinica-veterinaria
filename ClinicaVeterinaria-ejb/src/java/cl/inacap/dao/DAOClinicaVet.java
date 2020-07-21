@@ -6,7 +6,7 @@
 package cl.inacap.dao;
 
 import cl.inacap.modelo.Enfermedad;
-import cl.inacap.dao.Conexion;
+import cl.inacap.conexion.Conexion;
 import cl.inacap.modelo.Enfermedad;
 import cl.inacap.modelo.Mascota;
 import cl.inacap.modelo.MedicoVeteriario;
@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Stateless;
 
+
 /**
  *
  * @author Viviana Campos
@@ -29,7 +30,7 @@ import javax.ejb.Stateless;
 public class DAOClinicaVet extends Conexion{
 
     private Conexion conn = new Conexion();
-    
+    //Metodos para ingresar
     public int registrarMascota(Mascota masc){
         int cantidadFilas = 0;
         try {
@@ -67,7 +68,7 @@ public class DAOClinicaVet extends Conexion{
             PreparedStatement ps = con.prepareStatement(query);
             ps.setString(1, enf.getNombreEnf());
             ps.setString(2, enf.getDescripcion());
-            ps.setString(3, enf.getPrevalenca());
+            ps.setString(3, enf.getPrevalencia());
             ps.setString(4, enf.getTto());
 
             cantidadFilas = ps.executeUpdate();
@@ -119,7 +120,7 @@ public class DAOClinicaVet extends Conexion{
     }
     
     
-    
+    //Metodos para obtener listados
     public ArrayList<Enfermedad> getListaEnf(){
         ArrayList<Enfermedad> listaEnf = new ArrayList<>();
         Enfermedad enf;
@@ -132,7 +133,7 @@ public class DAOClinicaVet extends Conexion{
                 enf = new Enfermedad();
                 enf.setNombreEnf(rs.getString("NOMBRE"));
                 enf.setDescripcion(rs.getString("DESCRIPCION"));
-                enf.setPrevalenca(rs.getString("PREVALENCIA"));
+                enf.setPrevalencia(rs.getString("PREVALENCIA"));
                 enf.setTto(rs.getString("TRATAMIENTO"));
                 listaEnf.add(enf);
             }
@@ -190,8 +191,8 @@ public class DAOClinicaVet extends Conexion{
         Mascota masc;
         try {
             Connection con = conn.getConexion();
-            String query = "select * from Mascota";
-             PreparedStatement ps = con.prepareStatement(query);
+            String query = "select * from mascota";
+            PreparedStatement ps = con.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 masc = new Mascota();
@@ -216,4 +217,10 @@ public class DAOClinicaVet extends Conexion{
         
         return listaMasc;
     }
+    
+    
+    //Metodos para modificar
+    
+    
+    //Metodos para eliminar
 }

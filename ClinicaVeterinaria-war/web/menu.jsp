@@ -17,14 +17,18 @@
                     <li><a href="registrar.jsp">Registrar Atencion</a></li>
                     <li><a href="veterinario.jsp">Medico Veterinario</a></li>
                     <li><a href="enfermedad.jsp">Enfermedad</a></li>
-                    <li><a href="listar.jsp">Listar</a></li>
+                    <li><a href="consultas.jsp">Consultas</a></li>
+
+                    
                 </ul>
                 <ul class="side-nav" id="mobile-demo">
                     
                     <li><a href="index.jsp">Home</a></li>
-                    <li><a href="trabajador.jsp">Trabajador</a></li>
-                    <li><a href="departamento.jsp">Departamento</a></li>
-                    <li><a href="buscar.jsp">Buscar Trabajador</a></li>
+                    <li><a href="registrar.jsp">Registrar Atencion</a></li>
+                    <li><a href="veterinario.jsp">Medico Veterinario</a></li>
+                    <li><a href="enfermedad.jsp">Enfermedad</a></li>
+                    <li><a href="consultas.jsp">Consultas</a></li>
+
                 </ul>
             </div>
         </nav>
